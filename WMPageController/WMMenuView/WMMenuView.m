@@ -69,6 +69,12 @@
     }
 }
 
+/// AutoLayout 内部调用的是 -setBounds:
+- (void)setBounds:(CGRect)bounds {
+    [super setBounds:bounds];
+    self.frame = self.frame;
+}
+
 - (void)setProgressViewCornerRadius:(CGFloat)progressViewCornerRadius {
     _progressViewCornerRadius = progressViewCornerRadius;
     if (self.progressView) {
