@@ -119,6 +119,13 @@ static NSInteger const kWMControllerCountUndefined = -1;
     }
 }
 
+- (void)setMenuItemClass:(Class<WMMenuItem>)menuItemClass {
+    _menuItemClass = menuItemClass;
+    if (self.menuView.superview) {
+        [self wm_resetMenuView];
+    }
+}
+
 - (void)setCachePolicy:(WMPageControllerCachePolicy)cachePolicy {
     _cachePolicy = cachePolicy;
     if (cachePolicy != WMPageControllerCachePolicyDisabled) {
@@ -473,6 +480,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     menuView.progressViewIsNaughty = self.progressViewIsNaughty;
     menuView.progressViewCornerRadius = self.progressViewCornerRadius;
     menuView.showOnNavigationBar = self.showOnNavigationBar;
+    menuView.itemClass = self.menuItemClass;
     if (self.titleFontName) {
         menuView.fontName = self.titleFontName;
     }
