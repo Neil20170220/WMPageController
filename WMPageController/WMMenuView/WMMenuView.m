@@ -13,7 +13,7 @@
 #define WMDEFAULT_VAULE(value, defaultValue) (value != WMUNDEFINED_VALUE ? value : defaultValue)
 
 @interface WMMenuView () 
-@property (nonatomic, weak) WMMenuItem *selItem;
+@property (nonatomic, weak) UIView<WMMenuItem> *selItem;
 @property (nonatomic, strong) NSMutableArray *frames;
 @property (nonatomic, assign) NSInteger selectIndex;
 @property (nonatomic, readonly) NSInteger titlesCount;
@@ -90,8 +90,9 @@
     }
     
     [self.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[WMMenuItem class]]) {
-            ((WMMenuItem *)obj).speedFactor = self->_speedFactor;
+        if ([obj conformsToProtocol:@protocol(WMMenuItem)]) {
+            UIView<WMMenuItem> *item = obj;
+            item.speedFactor = self->_speedFactor;
         }
     }];
 }
@@ -198,8 +199,8 @@
 
 #pragma mark - Public Methods
 
-- (WMMenuItem *)itemAtIndex:(NSInteger)index {
-    return (WMMenuItem *)[self viewWithTag:(index + WMMENUITEM_TAG_OFFSET)];
+- (UIView<WMMenuItem> *)itemAtIndex:(NSInteger)index {
+    return (UIView<WMMenuItem> *)[self viewWithTag:(index + WMMENUITEM_TAG_OFFSET)];
 }
 
 - (void)setProgressViewIsNaughty:(BOOL)progressViewIsNaughty {
@@ -227,8 +228,8 @@
     }
     NSInteger tag = (NSInteger)progress + WMMENUITEM_TAG_OFFSET;
     CGFloat rate = progress - tag + WMMENUITEM_TAG_OFFSET;
-    WMMenuItem *currentItem = (WMMenuItem *)[self viewWithTag:tag];
-    WMMenuItem *nextItem = (WMMenuItem *)[self viewWithTag:tag+1];
+    UIView<WMMenuItem> *currentItem = (UIView<WMMenuItem> *)[self viewWithTag:tag];
+    UIView<WMMenuItem> *nextItem = (UIView<WMMenuItem> *)[self viewWithTag:tag+1];
     if (rate == 0.0) {
         [self.selItem setSelected:NO withAnimation:NO];
         self.selItem = currentItem;
@@ -246,7 +247,7 @@
     self.selectIndex = index;
     if (index == currentIndex || !self.selItem) { return; }
     
-    WMMenuItem *item = (WMMenuItem *)[self viewWithTag:tag];
+    UIView<WMMenuItem> *item = (UIView<WMMenuItem> *)[self viewWithTag:tag];
     [self.selItem setSelected:NO withAnimation:NO];
     self.selItem = item;
     [self.selItem setSelected:YES withAnimation:NO];
@@ -260,7 +261,7 @@
 - (void)updateTitle:(NSString *)title atIndex:(NSInteger)index andWidth:(BOOL)update {
     if (index >= self.titlesCount || index < 0) { return; }
     
-    WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(WMMENUITEM_TAG_OFFSET + index)];
+    UIView<WMMenuItem> *item = (UIView<WMMenuItem> *)[self viewWithTag:(WMMENUITEM_TAG_OFFSET + index)];
     item.text = title;
     if (!update) { return; }
     [self resetFrames];
@@ -269,7 +270,7 @@
 - (void)updateAttributeTitle:(NSAttributedString *)title atIndex:(NSInteger)index andWidth:(BOOL)update {
     if (index >= self.titlesCount || index < 0) { return; }
     
-    WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(WMMENUITEM_TAG_OFFSET + index)];
+    UIView<WMMenuItem> *item = (UIView<WMMenuItem> *)[self viewWithTag:(WMMENUITEM_TAG_OFFSET + index)];
     item.attributedText = title;
     if (!update) { return; }
     [self resetFrames];
@@ -397,7 +398,7 @@
 }
 
 - (void)resetItemFrame:(NSInteger)index {
-    WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(WMMENUITEM_TAG_OFFSET + index)];
+    UIView<WMMenuItem> *item = (UIView<WMMenuItem> *)[self viewWithTag:(WMMENUITEM_TAG_OFFSET + index)];
     CGRect frame = [self.frames[index] CGRectValue];
     item.frame = frame;
     if ([self.delegate respondsToSelector:@selector(menuView:didLayoutItemFrame:atIndex:)]) {
@@ -459,8 +460,8 @@
 
 - (void)deselectedItemsIfNeeded {
     [self.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (![obj isKindOfClass:[WMMenuItem class]] || obj == self.selItem) { return; }
-        [(WMMenuItem *)obj setSelected:NO withAnimation:NO];
+        if (![obj conformsToProtocol:@protocol(WMMenuItem)] || obj == self.selItem) { return; }
+        [(UIView<WMMenuItem> *)obj setSelected:NO withAnimation:NO];
     }];
 }
 
@@ -485,7 +486,8 @@
     
     for (int i = 0; i < self.titlesCount; i++) {
         CGRect frame = [self.frames[i] CGRectValue];
-        WMMenuItem *item = [[WMMenuItem alloc] initWithFrame:frame];
+        Class cls = self.itemClass ?: WMMenuItem.class;
+        UIView<WMMenuItem> *item = [[cls alloc] initWithFrame:frame];
         item.tag = (i + WMMENUITEM_TAG_OFFSET);
         item.delegate = self;
         item.text = [self.dataSource menuView:self titleAtIndex:i];
@@ -586,7 +588,7 @@
 }
 
 #pragma mark - Menu item delegate
-- (void)didPressedMenuItem:(WMMenuItem *)menuItem {
+- (void)didPressedMenuItem:(UIView<WMMenuItem> *)menuItem {
     
     if ([self.delegate respondsToSelector:@selector(menuView:shouldSelesctedIndex:)]) {
         BOOL should = [self.delegate menuView:self shouldSelesctedIndex:menuItem.tag - WMMENUITEM_TAG_OFFSET];

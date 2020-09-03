@@ -39,7 +39,7 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
 - (CGFloat)menuView:(WMMenuView *)menu itemMarginAtIndex:(NSInteger)index;
 - (CGFloat)menuView:(WMMenuView *)menu titleSizeForState:(WMMenuItemState)state atIndex:(NSInteger)index;
 - (UIColor *)menuView:(WMMenuView *)menu titleColorForState:(WMMenuItemState)state atIndex:(NSInteger)index;
-- (void)menuView:(WMMenuView *)menu didLayoutItemFrame:(WMMenuItem *)menuItem atIndex:(NSInteger)index;
+- (void)menuView:(WMMenuView *)menu didLayoutItemFrame:(UIView<WMMenuItem> *)menuItem atIndex:(NSInteger)index;
 @end
 
 @protocol WMMenuViewDataSource <NSObject>
@@ -69,11 +69,13 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
  *
  *  @return 定制完成的 MenuItem
  */
-- (WMMenuItem *)menuView:(WMMenuView *)menu initialMenuItem:(WMMenuItem *)initialMenuItem atIndex:(NSInteger)index;
+- (UIView<WMMenuItem> *)menuView:(WMMenuView *)menu initialMenuItem:(UIView<WMMenuItem> *)initialMenuItem atIndex:(NSInteger)index;
 
 @end
 
 @interface WMMenuView : UIView <WMMenuItemDelegate>
+
+@property (nonatomic, strong) Class<WMMenuItem> itemClass;
 @property (nonatomic, strong) NSArray *progressWidths;
 @property (nonatomic, weak) WMProgressView *progressView;
 @property (nonatomic, assign) CGFloat progressHeight;
@@ -100,7 +102,7 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
 - (void)reload;
 - (void)updateTitle:(NSString *)title atIndex:(NSInteger)index andWidth:(BOOL)update;
 - (void)updateAttributeTitle:(NSAttributedString *)title atIndex:(NSInteger)index andWidth:(BOOL)update;
-- (WMMenuItem *)itemAtIndex:(NSInteger)index;
+- (UIView<WMMenuItem> *)itemAtIndex:(NSInteger)index;
 /// 立即刷新 menuView 的 contentOffset，使 title 居中
 - (void)refreshContenOffset;
 - (void)deselectedItemsIfNeeded;

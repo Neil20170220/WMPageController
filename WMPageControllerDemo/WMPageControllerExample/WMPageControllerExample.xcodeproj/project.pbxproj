@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		32A979A11FC6B8E500C392A0 /* UIViewController+WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A979A01FC6B8E500C392A0 /* UIViewController+WMPageController.m */; };
+		3C1A0DA324FFB81000FE41E8 /* UIFont+WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1A0DA124FFB81000FE41E8 /* UIFont+WMPageController.m */; };
 		4D4EC7151EFA6A7700DDFF36 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4EC7141EFA6A7700DDFF36 /* main.m */; };
 		4D4EC7181EFA6A7700DDFF36 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4EC7171EFA6A7700DDFF36 /* AppDelegate.m */; };
 		4D4EC71E1EFA6A7700DDFF36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D4EC71C1EFA6A7700DDFF36 /* Main.storyboard */; };
@@ -58,6 +59,8 @@
 /* Begin PBXFileReference section */
 		32A9799F1FC6B8E500C392A0 /* UIViewController+WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMPageController.h"; sourceTree = "<group>"; };
 		32A979A01FC6B8E500C392A0 /* UIViewController+WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WMPageController.m"; sourceTree = "<group>"; };
+		3C1A0DA124FFB81000FE41E8 /* UIFont+WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+WMPageController.m"; sourceTree = "<group>"; };
+		3C1A0DA224FFB81000FE41E8 /* UIFont+WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+WMPageController.h"; sourceTree = "<group>"; };
 		4D4EC7101EFA6A7700DDFF36 /* WMPageControllerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WMPageControllerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D4EC7141EFA6A7700DDFF36 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4D4EC7161EFA6A7700DDFF36 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -250,6 +253,8 @@
 				32A979A01FC6B8E500C392A0 /* UIViewController+WMPageController.m */,
 				4D4EC7781EFA6D5000DDFF36 /* WMPageController.h */,
 				4D4EC7791EFA6D5000DDFF36 /* WMPageController.m */,
+				3C1A0DA224FFB81000FE41E8 /* UIFont+WMPageController.h */,
+				3C1A0DA124FFB81000FE41E8 /* UIFont+WMPageController.m */,
 			);
 			name = WMPageController;
 			path = ../../../WMPageController;
@@ -357,6 +362,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -425,6 +431,7 @@
 				4D4EC77B1EFA6D5000DDFF36 /* WMMenuView.m in Sources */,
 				4D4EC77D1EFA6D5000DDFF36 /* WMScrollView.m in Sources */,
 				4D4EC7521EFA6B9000DDFF36 /* WMViewController.m in Sources */,
+				3C1A0DA324FFB81000FE41E8 /* UIFont+WMPageController.m in Sources */,
 				4D4EC7581EFA6BA500DDFF36 /* WMImageViewCell.m in Sources */,
 				4D4EC7511EFA6B9000DDFF36 /* WMTableViewController.m in Sources */,
 				4D4EC76D1EFA6BFD00DDFF36 /* WMMainTableViewController.m in Sources */,
