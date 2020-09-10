@@ -76,15 +76,16 @@
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGFloat height = self.frame.size.height;
     int index = (int)self.progress;
-    index = (index <= self.itemFrames.count - 1) ? index : (int)self.itemFrames.count - 1;
+    NSArray *itemFrames = [self.itemFrames copy];
+    index = (index <= itemFrames.count - 1) ? index : (int)itemFrames.count - 1;
     CGFloat rate = self.progress - index;
-    CGRect currentFrame = [self.itemFrames[index] CGRectValue];
+    CGRect currentFrame = [itemFrames[index] CGRectValue];
     CGFloat currentWidth = currentFrame.size.width;
-    int nextIndex = index + 1 < self.itemFrames.count ? index + 1 : index;
-    CGFloat nextWidth = [self.itemFrames[nextIndex] CGRectValue].size.width;
+    int nextIndex = index + 1 < itemFrames.count ? index + 1 : index;
+    CGFloat nextWidth = [itemFrames[nextIndex] CGRectValue].size.width;
 
     CGFloat currentX = currentFrame.origin.x;
-    CGFloat nextX = [self.itemFrames[nextIndex] CGRectValue].origin.x;
+    CGFloat nextX = [itemFrames[nextIndex] CGRectValue].origin.x;
     CGFloat startX = currentX + (nextX - currentX) * rate;
     CGFloat width = currentWidth + (nextWidth - currentWidth)*rate;
     CGFloat endX = startX + width;
@@ -130,8 +131,8 @@
     
     if (self.hasBorder) {
         // 计算点
-        CGFloat startX = CGRectGetMinX([self.itemFrames.firstObject CGRectValue]);
-        CGFloat endX = CGRectGetMaxX([self.itemFrames.lastObject CGRectValue]);
+        CGFloat startX = CGRectGetMinX([itemFrames.firstObject CGRectValue]);
+        CGFloat endX = CGRectGetMaxX([itemFrames.lastObject CGRectValue]);
         UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(startX, lineWidth / 2.0, (endX - startX), height - lineWidth) cornerRadius:self.cornerRadius];
         CGContextSetLineWidth(ctx, lineWidth);
         CGContextAddPath(ctx, path.CGPath);
