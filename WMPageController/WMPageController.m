@@ -33,6 +33,9 @@ static NSInteger const kWMControllerCountUndefined = -1;
 // 收到内存警告的次数
 @property (nonatomic, assign) int memoryWarningCount;
 @property (nonatomic, readonly) NSInteger childControllersCount;
+
+@property (nonatomic) BOOL hasPendingReloadData;
+
 @end
 
 @implementation WMPageController
@@ -182,6 +185,11 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 - (void)reloadData {
+    if (![self isViewLoaded]) {
+        self.hasPendingReloadData = YES;
+        return;
+    }
+    
     [self wm_clearDatas];
     
     if (!self.childControllersCount) return;
@@ -711,6 +719,10 @@ static NSInteger const kWMControllerCountUndefined = -1;
     self.currentViewController = self.displayVC[@(self.selectIndex)];
     [self wm_addMenuView];
     [self didEnterController:self.currentViewController atIndex:self.selectIndex];
+    
+    if (self.hasPendingReloadData) {
+        [self reloadData];
+    }
 }
 
 - (void)viewDidLayoutSubviews {

@@ -372,6 +372,8 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
 @interface WMPageController (Private)
 
 - (void)wm_addMenuView;
+- (void)wm_addScrollView;
+- (void)wm_addMenuView;
 
 @end
 
