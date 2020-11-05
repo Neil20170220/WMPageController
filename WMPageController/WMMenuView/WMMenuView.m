@@ -417,6 +417,10 @@
 }
 
 - (NSArray *)convertProgressWidthsToFrames {
+    if (!self.frames.count && !self.progressWidths.count) {
+        return @[];
+    }
+    
     if (!self.frames.count) { NSAssert(NO, @"BUUUUUUUG...SHOULDN'T COME HERE!!"); }
     
     if (self.progressWidths.count < self.titlesCount) return self.frames;

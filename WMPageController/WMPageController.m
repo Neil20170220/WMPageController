@@ -185,12 +185,12 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 - (void)reloadData {
+    [self wm_clearDatas];
+    
     if (![self isViewLoaded]) {
         self.hasPendingReloadData = YES;
         return;
     }
-    
-    [self wm_clearDatas];
     
     if (!self.childControllersCount) return;
     

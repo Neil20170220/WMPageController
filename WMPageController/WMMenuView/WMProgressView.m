@@ -77,6 +77,10 @@
     CGFloat height = self.frame.size.height;
     int index = (int)self.progress;
     NSArray *itemFrames = [self.itemFrames copy];
+    if (!itemFrames.count) {
+        return;
+    }
+    
     index = (index <= itemFrames.count - 1) ? index : (int)itemFrames.count - 1;
     CGFloat rate = self.progress - index;
     CGRect currentFrame = [itemFrames[index] CGRectValue];
