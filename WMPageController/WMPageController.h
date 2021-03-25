@@ -35,9 +35,12 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
 };
 
 NS_ASSUME_NONNULL_BEGIN
+
 extern NSString *const WMControllerDidAddToSuperViewNotification;
 extern NSString *const WMControllerDidFullyDisplayedNotification;
+
 @protocol WMPageControllerDataSource <NSObject>
+
 @optional
 
 /**
@@ -373,7 +376,6 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
 
 - (void)wm_addMenuView;
 - (void)wm_addScrollView;
-- (void)wm_addMenuView;
 
 @end
 

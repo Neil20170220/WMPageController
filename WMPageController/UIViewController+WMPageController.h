@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class WMPageController;
 
 @interface UIViewController (WMPageController)
@@ -18,3 +20,5 @@
 @property (nonatomic, nullable, strong, readonly) WMPageController *wm_pageController;
 
 @end
+
+NS_ASSUME_NONNULL_END

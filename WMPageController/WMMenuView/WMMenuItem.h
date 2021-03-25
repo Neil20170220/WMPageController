@@ -24,8 +24,8 @@ typedef NS_ENUM(NSUInteger, WMMenuItemState) {
 
 @protocol WMMenuItem <NSObject>
 
-@property (nonatomic, copy) NSString *text;
-@property (nonatomic, copy) NSAttributedString *attributedText;
+@property (nonatomic, copy, nullable) NSString *text;
+@property (nonatomic, copy, nullable) NSAttributedString *attributedText;
 @property (nonatomic, strong) UIFont *font;
 @property (nonatomic, strong) UIColor *textColor;
 @property (nonatomic) NSTextAlignment textAlignment;

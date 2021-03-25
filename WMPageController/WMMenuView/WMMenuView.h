@@ -11,6 +11,8 @@
 #import "WMProgressView.h"
 #define WMUNDEFINED_VALUE -1
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class WMMenuView;
 
 typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
@@ -75,8 +77,8 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
 
 @interface WMMenuView : UIView <WMMenuItemDelegate>
 
-@property (nonatomic, strong) Class<WMMenuItem> itemClass;
-@property (nonatomic, strong) NSArray *progressWidths;
+@property (nonatomic, strong, nullable) Class<WMMenuItem> itemClass;
+@property (nonatomic, strong, nullable) NSArray *progressWidths;
 @property (nonatomic, weak) WMProgressView *progressView;
 @property (nonatomic, assign) CGFloat progressHeight;
 @property (nonatomic, assign) WMMenuViewStyle style;
@@ -102,7 +104,7 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
 - (void)reload;
 - (void)updateTitle:(NSString *)title atIndex:(NSInteger)index andWidth:(BOOL)update;
 - (void)updateAttributeTitle:(NSAttributedString *)title atIndex:(NSInteger)index andWidth:(BOOL)update;
-- (UIView<WMMenuItem> *)itemAtIndex:(NSInteger)index;
+- (nullable UIView<WMMenuItem> *)itemAtIndex:(NSInteger)index;
 /// 立即刷新 menuView 的 contentOffset，使 title 居中
 - (void)refreshContenOffset;
 - (void)deselectedItemsIfNeeded;
@@ -112,3 +114,5 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
 - (void)updateBadgeViewAtIndex:(NSInteger)index;
 
 @end
+
+NS_ASSUME_NONNULL_END

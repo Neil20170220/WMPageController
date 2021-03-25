@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
 @interface WMProgressView : UIView
+
 @property (nonatomic, strong) NSArray *itemFrames;
 @property (nonatomic, assign) CGColorRef color;
 @property (nonatomic, assign) CGFloat progress;
@@ -26,4 +28,5 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)moveToPostion:(NSInteger)pos;
 
 @end
+
 NS_ASSUME_NONNULL_END
