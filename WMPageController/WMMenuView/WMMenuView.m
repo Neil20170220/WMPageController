@@ -321,6 +321,7 @@
     if (self = [super initWithFrame:frame]) {
         self.progressViewCornerRadius = WMUNDEFINED_VALUE;
         self.progressHeight = WMUNDEFINED_VALUE;
+        self.animateTapAction = YES;
     }
     return self;
 }
@@ -602,15 +603,19 @@
     }
     
     CGFloat progress = menuItem.tag - WMMENUITEM_TAG_OFFSET;
-    [self.progressView moveToPostion:progress];
+    if (self.animateTapAction) {
+        [self.progressView moveToPostion:progress];
+    } else {
+        [self.progressView setProgressWithOutAnimate:progress];
+    }
     
     NSInteger currentIndex = self.selItem.tag - WMMENUITEM_TAG_OFFSET;
     if ([self.delegate respondsToSelector:@selector(menuView:didSelectedIndex:currentIndex:)]) {
         [self.delegate menuView:self didSelectedIndex:menuItem.tag - WMMENUITEM_TAG_OFFSET currentIndex:currentIndex];
     }
     
-    [self.selItem setSelected:NO withAnimation:YES];
-    [menuItem setSelected:YES withAnimation:YES];
+    [self.selItem setSelected:NO withAnimation:self.animateTapAction];
+    [menuItem setSelected:YES withAnimation:self.animateTapAction];
     self.selItem = menuItem;
     
     NSTimeInterval delay = self.style == WMMenuViewStyleDefault ? 0 : 0.3f;

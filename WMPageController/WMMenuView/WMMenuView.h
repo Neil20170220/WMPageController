@@ -97,6 +97,8 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
 @property (nonatomic, assign) CGFloat progressViewCornerRadius;
 @property (nonatomic, assign) BOOL progressViewIsNaughty;
 @property (nonatomic, assign) BOOL showOnNavigationBar;
+/// 默认 YES
+@property (nonatomic, assign) BOOL animateTapAction;
 
 - (void)slideMenuAtProgress:(CGFloat)progress;
 - (void)selectItemAtIndex:(NSInteger)index;
