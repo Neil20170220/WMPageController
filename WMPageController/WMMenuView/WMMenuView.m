@@ -527,10 +527,7 @@
 - (void)calculateItemFrames {
     CGFloat contentWidth = [self itemMarginAtIndex:0];
     for (int i = 0; i < self.titlesCount; i++) {
-        CGFloat itemW = 60.0;
-        if ([self.delegate respondsToSelector:@selector(menuView:widthForItemAtIndex:)]) {
-            itemW = [self.delegate menuView:self widthForItemAtIndex:i];
-        }
+        CGFloat itemW = [self itemWidthAtIndex:i];
         CGRect frame = CGRectMake(contentWidth, 0, itemW, self.frame.size.height);
         // 记录frame
         [self.frames addObject:[NSValue valueWithCGRect:frame]];
@@ -574,6 +571,26 @@
         return [self.delegate menuView:self itemMarginAtIndex:index];
     }
     return 0.0;
+}
+
+- (CGFloat)itemWidthAtIndex:(NSInteger)index {
+    if ([self.delegate respondsToSelector:@selector(menuView:widthForItemAtIndex:)]) {
+        return [self.delegate menuView:self widthForItemAtIndex:index];
+    } else {
+        NSString *title = [self.dataSource menuView:self titleAtIndex:index];
+        CGFloat pointSize = [self sizeForState:WMMenuItemStateSelected atIndex:index];
+        UIFont *font = nil;
+        if (self.fontName) {
+            font = [UIFont wm_fontWithName:self.fontName size:pointSize];
+        } else {
+            font = [UIFont systemFontOfSize:pointSize];
+        }
+        NSDictionary *attrs = @{NSFontAttributeName: font};
+        CGFloat itemWidth = [title boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
+                                                options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
+                                             attributes:attrs context:nil].size.width;
+        return ceil(itemWidth);
+    }
 }
 
 // MARK:Progress View
