@@ -117,32 +117,34 @@
         CGContextAddLineToPoint(ctx, endX, height);
         CGContextAddLineToPoint(ctx, startX + width / 2.0, 0);
         CGContextClosePath(ctx);
-        CGContextSetFillColorWithColor(ctx, self.color);
+        CGContextSetFillColorWithColor(ctx, self.color.CGColor);
         CGContextFillPath(ctx);
         return;
     }
     
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(startX, lineWidth / 2.0, width, height - lineWidth) cornerRadius:self.cornerRadius];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(startX, lineWidth / 2.0, width, height - lineWidth)
+                                                    cornerRadius:self.cornerRadius];
     CGContextAddPath(ctx, path.CGPath);
     
     if (self.hollow) {
-        CGContextSetStrokeColorWithColor(ctx, self.color);
+        CGContextSetStrokeColorWithColor(ctx, self.color.CGColor);
         CGContextStrokePath(ctx);
         return;
     }
-    CGContextSetFillColorWithColor(ctx, self.color);
+    CGContextSetFillColorWithColor(ctx, self.color.CGColor);
     CGContextFillPath(ctx);
     
     if (self.hasBorder) {
         // 计算点
         CGFloat startX = CGRectGetMinX([itemFrames.firstObject CGRectValue]);
         CGFloat endX = CGRectGetMaxX([itemFrames.lastObject CGRectValue]);
-        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(startX, lineWidth / 2.0, (endX - startX), height - lineWidth) cornerRadius:self.cornerRadius];
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(startX, lineWidth / 2.0, (endX - startX), height - lineWidth)
+                                                        cornerRadius:self.cornerRadius];
         CGContextSetLineWidth(ctx, lineWidth);
         CGContextAddPath(ctx, path.CGPath);
         
         // 绘制
-        CGContextSetStrokeColorWithColor(ctx, self.color);
+        CGContextSetStrokeColorWithColor(ctx, self.color.CGColor);
         CGContextStrokePath(ctx);
     }
 }
